@@ -12,6 +12,9 @@ __pycache__/
 venv/
 .env
 
+# Local SQLite Database
+health_analytics.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

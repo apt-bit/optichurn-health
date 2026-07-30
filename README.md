@@ -60,8 +60,7 @@ Where $g_i$ and $h_i$ are the first (gradient) and second-order (Hessian) partia
 ### 5. Prescriptive Analytics via Linear Programming
 Once churn probabilities ($P_i$) are output by the ML model, the business must allocate a fixed retention budget ($B$) across $N$ users. Let $c_i$ be the cost of targeting user $i$, and $LTV_i$ be their Lifetime Value. We maximize the expected retained value using the **Simplex / Interior-Point method** via `scipy.optimize.linprog`:
 ```math
-$$\displaystyle \text{Maximize } \sum_{i=1}^{N} P_i \cdot LTV_i \cdot x_i$$
-$$\displaystyle \text{Subject to } \sum_{i=1}^{N} c_i \cdot x_i \le B$$
+$$\displaystyle \text{Maximize } \sum_{i=1}^{N} P_i \cdot LTV_i \cdot x_i \ \ \ \text{    Subject to } \sum_{i=1}^{N} c_i \cdot x_i \le B$$
 ```
 Where $x_i \in [0, 1]$ represents the continuous targeting decision variable.
 
