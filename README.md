@@ -18,7 +18,14 @@ Unlike standard machine learning projects that rely solely on black-box algorith
 
 ---
 
-`[Raw Data] -> [SQL Engine] -> [Mathematical Feature Engineering] -> [ML Models] -> [SciPy Optimisation] -> [Streamlit UI]`
+```mermaid
+graph LR
+    A[Raw Data] --> B[SQL Engine]
+    B --> C[Mathematical Feature Engineering]
+    C --> D[ML Models]
+    D --> E[SciPy Optimisation]
+    E --> F[Streamlit UI]
+```
 
 ---
 
@@ -31,31 +38,31 @@ This ensures the first and second derivatives remain continuous, preserving the 
 
 ### 2. Stochastic Modeling via Markov Chains
 Churn is modeled fundamentally as a random process. We establish a state space $S = \{\text{Active}, \text{At Risk}, \text{Churned}\}$ and calculate an empirical transition probability matrix $P$:
-<<<<<<< HEAD
-$$P = \begin{pmatrix} p_{11} & p_{12} & p_{13} \\ 
-p_{21} & p_{22} & p_{23} \\ 
-0 & 0 & 1 \end{pmatrix}$$
-=======
 ```math
 $$P = \begin{pmatrix} p_{11} & p_{12} & p_{13} \\ p_{21} & p_{22} & p_{23} \\ 0 & 0 & 1 \end{pmatrix}$$
 ```
->>>>>>> b2b8e2cc12119b0163ea86d8cf4d6d44e1b9c4b1
 This stochastic model acts as a rigorous mathematical baseline to evaluate our machine learning classifiers against.
 
 ### 3. Engagement Decay via Ordinary Differential Equations (ODEs)
 User disengagement is modeled as a time-dependent decay function. The rate of engagement loss is governed by the first-order differential equation:
-$$\frac{dE}{dt} = -k \cdot E(t)$$
+```math
+$$\dfrac{dE}{dt} = -k \cdot E(t)$$
+```
 Integrating this analytically via `scipy.integrate.odeint` allows us to extract the decay constant ($k$) for each user, providing a high-utility predictive feature for the ML pipeline.
 
 ### 4. Non-Linear Optimization (XGBoost Objective)
 The predictive engine utilizes **XGBoost**, which optimizes a regularized objective function at step $t$ using a second-order Taylor expansion:
-$$\mathcal{L}^{(t)} \approx \sum_{i=1}^{n} \left[ l(y_i, \hat{y}^{(t-1)}) + g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i) \right] + \Omega(f_t)$$
+```math
+$$\displaystyle \mathcal{L}^{(t)} \approx \sum_{i=1}^{n} \left[ l(y_i, \hat{y}^{(t-1)}) + g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i) \right] + \Omega(f_t)$$
+```
 Where $g_i$ and $h_i$ are the first (gradient) and second-order (Hessian) partial derivatives of the loss function, leveraging multivariate calculus.
 
 ### 5. Prescriptive Analytics via Linear Programming
 Once churn probabilities ($P_i$) are output by the ML model, the business must allocate a fixed retention budget ($B$) across $N$ users. Let $c_i$ be the cost of targeting user $i$, and $LTV_i$ be their Lifetime Value. We maximize the expected retained value using the **Simplex / Interior-Point method** via `scipy.optimize.linprog`:
-$$\text{Maximize } \sum_{i=1}^{N} P_i \cdot LTV_i \cdot x_i$$
-$$\text{Subject to } \sum_{i=1}^{N} c_i \cdot x_i \le B$$
+```math
+$$\displaystyle \text{Maximize } \sum_{i=1}^{N} P_i \cdot LTV_i \cdot x_i$$
+$$\displaystyle \text{Subject to } \sum_{i=1}^{N} c_i \cdot x_i \le B$$
+```
 Where $x_i \in [0, 1]$ represents the continuous targeting decision variable.
 
 ---
