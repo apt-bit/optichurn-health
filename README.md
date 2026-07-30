@@ -18,7 +18,7 @@ Unlike standard machine learning projects that rely solely on black-box algorith
 
 ---
 
-[Raw Data] -> [SQL Engine] -> [Mathematical Feature Engineering] -> [ML Models] -> [SciPy Optimisation] -> [Streamlit UI]
+`[Raw Data] -> [SQL Engine] -> [Mathematical Feature Engineering] -> [ML Models] -> [SciPy Optimisation] -> [Streamlit UI]`
 
 ---
 
@@ -31,7 +31,9 @@ This ensures the first and second derivatives remain continuous, preserving the 
 
 ### 2. Stochastic Modeling via Markov Chains
 Churn is modeled fundamentally as a random process. We establish a state space $S = \{\text{Active}, \text{At Risk}, \text{Churned}\}$ and calculate an empirical transition probability matrix $P$:
-$$P = \begin{pmatrix} p_{11} & p_{12} & p_{13} \\ p_{21} & p_{22} & p_{23} \\ 0 & 0 & 1 \end{pmatrix}$$
+$$P = \begin{pmatrix} p_{11} & p_{12} & p_{13} \\ 
+p_{21} & p_{22} & p_{23} \\ 
+0 & 0 & 1 \end{pmatrix}$$
 This stochastic model acts as a rigorous mathematical baseline to evaluate our machine learning classifiers against.
 
 ### 3. Engagement Decay via Ordinary Differential Equations (ODEs)
